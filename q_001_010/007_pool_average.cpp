@@ -19,7 +19,7 @@ namespace me {
                             c += img.at<cv::Vec3b>(iy + ry, ix + rx)[z];
                         }
                     }
-                    out.at<cv::Vec3b>(oy, ox)[z] = c / rrange;
+                    out.at<cv::Vec3b>(oy, ox)[z] = static_cast<uchar>(c / rrange);
                 }
             }
         }
