@@ -10,17 +10,17 @@ namespace me {
 
         for(int oy = 0; oy < oh; oy++){
             for(int ox = 0; ox < ow; ox++){
-                std::array<int, 3> c = {0, 0, 0};
-                for(int ry = 0; ry < range; ry++){
-                    const int iy = oy * range;
-                    for(int rx = 0; rx < range; rx++){
-                        const int ix = ox * range;
-                        for(int z = 0; z < 3; z++){
-                            c[z] += img.at<cv::Vec3b>(iy + ry, ix + rx)[z];
+                for(int z = 0; z < 3; z++){
+                    int c = 0;
+                    for(int ry = 0; ry < range; ry++){
+                        const int iy = oy * range;
+                        for(int rx = 0; rx < range; rx++){
+                            const int ix = ox * range;
+                            c += img.at<cv::Vec3b>(iy + ry, ix + rx)[z];
                         }
                     }
+                    out.at<cv::Vec3b>(oy, ox)[z] = c / rrange;
                 }
-                out.at<cv::Vec3b>(oy, ox) = {static_cast<uchar>(c[0] / rrange), static_cast<uchar>(c[1] / rrange), static_cast<uchar>(c[2] / rrange)};
             }
         }
         
